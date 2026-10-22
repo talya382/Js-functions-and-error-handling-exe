@@ -53,15 +53,34 @@ function summaryStats(arrList) {
     return { sum: sum, avg: sum / nums.length };
   });
 }
-console.log(summaryStats([[1, 2], ["ss", 44], [10, 9]]));
+console.log(
+  summaryStats([
+    [1, 2],
+    ["ss", 44],
+    [10, 9],
+  ]),
+);
 
-
-function safeCalculator(a, b, operation){
-    try{
-        if(!typeof a=== typeof b)
-               throw new TypeError("Input must be an array");
-    }catch(err){
- if (err instanceof TypeError) console.error("X worng type:", err.message);
-    }
+function safeCalculator(a, b, operation) {
+  if (
+    typeof a !== "number" ||
+    typeof b !== "number" ||
+    Number.isNaN(a) ||
+    Number.isNaN(b)
+  )
+    throw new TypeError("Input must be an array");
+  switch (operation) {
+    case "+":
+      return a + b;
+    case "-":
+      return a - b;
+    case "*":
+      return a * b;
+    case "/":
+      if (b === 0) throw new RangeError("Cannot divide by zero");
+      return a / b;
+    default:
+      throw new Error(`Unknown operation: ${operation}`);
+  }
 }
-console.log(safeCalculator(1,2,"+"))
+console.log(safeCalculator(1, 6, "/"));
